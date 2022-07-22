@@ -1,0 +1,9 @@
+{
+    "name": "tankmon-backend",
+    "private": true,
+    "version": "0.0.0",
+    "type": "module",
+    "dependencies": {
+        "@vercel/node": "^2.4.5"
+    }
+}
