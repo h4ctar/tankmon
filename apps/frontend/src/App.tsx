@@ -1,6 +1,7 @@
 export const App = () => {
     const makeRequest = () => {
-        fetch(`${import.meta.env.BACKEND_BASE_URL}/test`)
+        console.log(import.meta.env)
+        fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/test`)
             .then((res) => res.json())
             .then((data) => console.log(data));
     };
