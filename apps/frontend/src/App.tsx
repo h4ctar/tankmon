@@ -11,7 +11,11 @@ export const App = () => {
                 <h1>hello</h1>
                 <button
                     className="px-6 py-2 rounded bg-green-800 hover:bg-green-600 text-white"
-                    type="button" onClick={makeRequest}>Click Me!</button>
+                    type="button"
+                    onClick={makeRequest}
+                >
+                    Click Me!
+                </button>
             </div>
         </div>
     );
