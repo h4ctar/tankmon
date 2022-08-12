@@ -1,8 +1,10 @@
 import { z } from "zod";
 
-export const User = z.object({
-    username: z.string(),
+export const Tank = z.object({
+    id: z.string(),
+    name: z.string(),
+    height: z.number(),
+    capacity: z.number(),
 });
 
-// extract the inferred type
-export type User = z.infer<typeof User>;
+export type Tank = z.infer<typeof Tank>;

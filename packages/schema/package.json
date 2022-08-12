@@ -1,7 +1,8 @@
 {
-    "name": "tankmon-schema",
+    "name": "@tankmon/schema",
     "version": "0.0.0",
     "type": "module",
+    "types": "src/index.ts",
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.30.7",
         "@typescript-eslint/parser": "^5.30.7",

@@ -1,20 +1,46 @@
+import { QueryClient, QueryClientProvider, useMutation, useQuery, useQueryClient } from "react-query";
+import { getTanks, postTank } from "./tanks.api";
+
+const queryClient = new QueryClient();
+
 export const App = () => {
-    const makeRequest = () => {
-        fetch(`${import.meta.env.VITE_BACKEND_BASE_URL}/test`)
-            .then((res) => res.text())
-            .then((data) => console.log(data));
-    };
+    return (
+        <QueryClientProvider client={queryClient}>
+            <TankList />
+        </QueryClientProvider>
+    );
+};
+
+const TankList = () => {
+    const queryClient = useQueryClient();
+
+    const query = useQuery("tanks", getTanks);
+
+    const mutation = useMutation(postTank, {
+        onSuccess: () => {
+            queryClient.invalidateQueries("tanks");
+        },
+    });
 
     return (
         <div className="flex h-screen">
             <div className="m-auto">
-                <h1>hello</h1>
+                <h1>Tanks</h1>
+                {query.data?.map((tank) => (
+                    <button
+                        key={tank.id}
+                        className="px-6 py-2 rounded bg-green-800 hover:bg-green-600 text-white"
+                        type="button"
+                    >
+                        {tank.name}
+                    </button>
+                ))}
                 <button
                     className="px-6 py-2 rounded bg-green-800 hover:bg-green-600 text-white"
                     type="button"
-                    onClick={makeRequest}
+                    onClick={() => mutation.mutate({ id: "asdf", capacity: 10, height: 2, name: "Tank" })}
                 >
-                    Click Me!
+                    Post tank
                 </button>
             </div>
         </div>
