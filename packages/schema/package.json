@@ -1,5 +1,5 @@
 {
-    "name": "tankmon-schema",
+    "name": "@tankmon/schema",
     "version": "0.0.0",
     "type": "module",
     "types": "src/index.ts",

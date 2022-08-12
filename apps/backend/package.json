@@ -1,11 +1,11 @@
 {
-    "name": "tankmon-backend",
+    "name": "@tankmon/backend",
     "private": true,
     "version": "0.0.0",
     "type": "module",
     "dependencies": {
         "@vercel/node": "^2.4.5",
-        "tankmon-schema": "0.0.0"
+        "@tankmon/schema": "0.0.0"
     },
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.30.7",
