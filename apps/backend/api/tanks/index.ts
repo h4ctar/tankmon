@@ -9,6 +9,8 @@ const handler = (request: VercelRequest, response: VercelResponse) => {
     console.log("body", request.body);
     console.log("body", JSON.parse(request.body));
 
+    // bump
+
     if (request.method === "GET") {
         console.info("Get all tanks");
 
