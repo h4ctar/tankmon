@@ -5,5 +5,8 @@
     "workspaces": [
         "apps/*",
         "packages/*"
-    ]
+    ],
+    "dependencies": {
+        "@tankmon/schema": "0.0.0"
+    }
 }
