@@ -1,4 +1,4 @@
-import type { Tank } from "@tankmon/schema";
+import { Tank } from "./tank.schema";
 
 export const getTanks = async (): Promise<Tank[]> => {
     console.log("Get tanks");

@@ -1,5 +1,5 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { Tank } from "@tankmon/schema";
+import { Tank } from "../../src/tank.schema";
 import { allowCors } from "../_utils";
 
 const handler = (request: VercelRequest, response: VercelResponse) => {
