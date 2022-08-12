@@ -1,6 +1,6 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import { Tank } from "../../src/tank.schema";
-import { allowCors } from "../_utils";
+import { Tank } from "../src/tank.schema";
+import { allowCors } from "./_utils";
 
 const handler = (request: VercelRequest, response: VercelResponse) => {
     console.log("url", request.url);
@@ -8,8 +8,6 @@ const handler = (request: VercelRequest, response: VercelResponse) => {
     console.log("query", request.query);
     console.log("body", request.body);
     console.log("body", JSON.parse(request.body));
-
-    // bump
 
     if (request.method === "GET") {
         console.info("Get all tanks");
