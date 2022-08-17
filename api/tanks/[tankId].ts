@@ -19,17 +19,6 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         console.log(tank);
 
         response.status(200).send(tank);
-    } else if (request.method === "POST") {
-        console.info("Get a new tank");
-
-        const tank = Tank.parse(JSON.parse(request.body));
-
-        console.log(tank);
-
-        await client.connect();
-        await client.db("tankmon").collection<Tank>("tanks").insertOne(tank);
-
-        response.status(201).send(tank);
     } else {
         throw new Error("Unsupported method");
     }
