@@ -1,9 +1,11 @@
 import { z } from "zod";
 
 export const Tank = z.object({
-    id: z.string(),
+    _id: z.string(),
+    monitorId: z.string(),
     name: z.string(),
-    height: z.number(),
+    sensorHeight: z.number(),
+    diameter: z.number(),
     capacity: z.number(),
 });
 

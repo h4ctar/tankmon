@@ -1,10 +1,9 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
-import type { Tank } from "../../src/tank.schema";
+import type { Tank } from "../../src/tanks/tank.schema";
+import { client } from "../_mongo";
 import { allowCors } from "../_utils";
 
-const TANKS: Tank[] = [{ id: "asdf", name: "Bob" }];
-
-const handler = (request: VercelRequest, response: VercelResponse) => {
+const handler = async (request: VercelRequest, response: VercelResponse) => {
     console.log("url", request.url);
     console.log("method", request.method);
     console.log("query", request.query);
@@ -12,7 +11,13 @@ const handler = (request: VercelRequest, response: VercelResponse) => {
 
     if (request.method === "GET") {
         console.info("Get all tanks");
-        response.status(200).send(TANKS);
+
+        await client.connect();
+        const tanks = await client.db("tankmon").collection<Tank>("tanks").find().toArray();
+
+        console.log(tanks);
+
+        response.status(200).send(tanks);
     } else {
         throw new Error("Unsupported method");
     }

@@ -4,10 +4,13 @@ body {
     font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
         Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
         Noto Color Emoji;
+
+    color: rgb(255, 255, 255);
 }
 
-h2 {
-    color: white;
+article {
+    max-width: 1024px;
+    margin: auto;
 }
 
 header {
@@ -22,7 +25,8 @@ header {
 }
 
 input {
-    width: calc(100% - 24px);
+    width: 100%;
+    box-sizing: border-box;
 
     color: rgb(241, 245, 249);
     background-color: rgb(51, 65, 85);
@@ -32,6 +36,112 @@ input {
 
     line-height: 24px;
     padding: 8px 12px;
+
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset;
+}
+
+input.error {
+    border-color: red;
+    border-width: 1px;
+}
+
+p.error {
+    color: red;
+    margin-top: 0;
+}
+
+section {
+    background-color: rgb(24, 34, 53);
+
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset;
+}
+
+.card-container {
+    display: grid;
+    grid-template-columns: auto auto auto;
+    column-gap: 20px;
+    row-gap: 20px;
+    padding: 1.5rem 2rem;
+}
+
+/* Mobile phones */
+.card-container {
+    grid-template-columns: auto;
+}
+
+/** Tablets */
+@media (min-width: 600px) {
+    .card-container {
+        grid-template-columns: auto auto;
+    }
+}
+
+/** Desktop */
+@media (min-width: 768px) {
+    .card-container {
+        grid-template-columns: auto auto auto;
+    }
+}
+
+.card {
+    background-color: rgb(51, 65, 85);
+    padding: 20px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset;
+    border-radius: 8px;
+}
+
+.new-card {
+    padding: 20px;
+    border-radius: 8px;
+    border-style: dashed;
+    border-width: 2px;
+    color: rgb(51, 65, 85);
+    border-color: rgb(51, 65, 85);
+    text-decoration: none;
+    text-align: center;
+}
+
+.new-card:hover {
+    color: rgb(59, 130, 246);
+    border-color: rgb(59, 130, 246);
+    cursor: pointer;
+}
+
+.modal {
+    position: fixed;
+    z-index: 1;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4);
+    overflow-y: scroll;
+}
+
+.modal-content {
+    margin: 5% auto;
+    max-width: 400px;
+
+    background-color: rgb(30, 41, 59);
+    padding: 20px;
+    box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset;
+    border-radius: 8px;
+}
+
+form {
+    display: grid;
+    row-gap: 10px;
+}
+
+button {
+    border-radius: 6px;
+    border-width: 0;
+    background-color: rgb(59, 130, 246);
+    padding: 8px;
+    color: rgb(255, 255, 255);
 
     box-shadow: rgba(255, 255, 255, 0.1) 0px 1px 0px 0px inset;
 }
