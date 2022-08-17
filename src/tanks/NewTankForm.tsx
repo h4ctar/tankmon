@@ -16,6 +16,7 @@ export const NewTankForm = () => {
     const mutation = useMutation(postTank, {
         onSuccess: () => {
             queryClient.invalidateQueries("tanks");
+            // TODO: close form
         },
     });
 

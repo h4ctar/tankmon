@@ -10,7 +10,7 @@ export const getTanks = async (): Promise<Tank[]> => {
 
 export const getTank = async (id: string): Promise<Tank> => {
     console.log("Get tank");
-    const response = await fetch(`/tanks/${id}`);
+    const response = await fetch(`/api/tanks/${id}`);
     const tank = await response.json();
     console.log(tank);
     return tank;
@@ -19,7 +19,7 @@ export const getTank = async (id: string): Promise<Tank> => {
 export const postTank = async (tank: Tank) => {
     console.log("Post tank", tank);
 
-    const response = await fetch("/tanks", {
+    const response = await fetch("/api/tanks", {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
