@@ -1,31 +1,27 @@
 import { Tank } from "./tank.schema";
 
 export const getTanks = async (): Promise<Tank[]> => {
-    console.log("Get tanks");
-    const response = await fetch("/api/tanks");
+    console.info("Get tanks");
+    const response = await fetch(`${import.meta.env.VITE_VERCEL_URL}/api/tanks`);
     const tanks = await response.json();
-    console.log(tanks);
     return tanks;
 };
 
 export const getTank = async (id: string): Promise<Tank> => {
-    console.log("Get tank");
-    const response = await fetch(`/api/tanks/${id}`);
+    console.info("Get tank");
+    const response = await fetch(`${import.meta.env.VITE_VERCEL_URL}/api/tanks/${id}`);
     const tank = await response.json();
-    console.log(tank);
     return tank;
 };
 
 export const postTank = async (tank: Tank) => {
-    console.log("Post tank", tank);
+    console.info("Post tank", tank);
 
-    const response = await fetch("/api/tanks", {
+    await fetch(`${import.meta.env.VITE_VERCEL_URL}/api/tanks`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
         body: JSON.stringify(tank),
     });
-
-    console.log(response);
 };

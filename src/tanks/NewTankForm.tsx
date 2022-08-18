@@ -5,7 +5,11 @@ import { Tank } from "./tank.schema";
 import { postTank } from "./tanks.api";
 import classNames from "classnames";
 
-export const NewTankForm = () => {
+type Props = {
+    hide: () => void;
+};
+
+export const NewTankForm = (props: Props) => {
     const {
         register,
         handleSubmit,
@@ -16,14 +20,11 @@ export const NewTankForm = () => {
     const mutation = useMutation(postTank, {
         onSuccess: () => {
             queryClient.invalidateQueries("tanks");
-            // TODO: close form
+            props.hide();
         },
     });
 
-    const submit = (tank: Tank) => {
-        console.log(tank);
-        mutation.mutate(tank);
-    };
+    const submit = (tank: Tank) => mutation.mutate(tank);
 
     return (
         <div className="modal">
@@ -40,7 +41,9 @@ export const NewTankForm = () => {
                     />
                     {errors.name?.message && <p className="error">{errors.name?.message}</p>}
 
+                    <label htmlFor="tank-monitor-id-input">Tank monitor ID</label>
                     <input
+                        id="tank-monitor-id-input"
                         type="text"
                         placeholder="Tank monitor ID"
                         className={classNames({ error: !!errors.monitorId })}
@@ -73,7 +76,17 @@ export const NewTankForm = () => {
                     />
                     {errors.sensorHeight?.message && <p className="error">{errors.sensorHeight?.message}</p>}
 
-                    <button type="submit">Add tank</button>
+                    <div className="button-group">
+                        <button type="submit">Add tank</button>
+                        <button
+                            onClick={(event) => {
+                                props.hide();
+                                event.preventDefault();
+                            }}
+                        >
+                            Cancel
+                        </button>
+                    </div>
                 </form>
             </div>
         </div>

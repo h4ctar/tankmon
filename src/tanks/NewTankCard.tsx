@@ -9,7 +9,7 @@ export const NewTankCard = () => {
             <a className="new-card" onClick={() => setShowModal(true)}>
                 <h3>Add tank</h3>
             </a>
-            {showModal && <NewTankForm />}
+            {showModal && <NewTankForm hide={() => setShowModal(false)} />}
         </>
     );
 };
