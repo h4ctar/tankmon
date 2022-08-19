@@ -155,3 +155,17 @@ button {
     display: flex;
     gap: 12px;
 }
+
+.tank-card {
+    display: flex;
+    align-items: center;
+}
+
+.tank-percentage {
+    font-size: 54px;
+}
+
+.tank-details {
+    flex-grow: 1;
+    margin-left: 12px;
+}
