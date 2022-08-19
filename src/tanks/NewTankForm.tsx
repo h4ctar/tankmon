@@ -1,5 +1,5 @@
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useForm } from "react-hook-form";
+import { FieldErrorsImpl, useForm, UseFormRegister } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
 import { Tank } from "./tank.schema";
 import { postTank } from "./tanks.api";
@@ -31,50 +31,29 @@ export const NewTankForm = (props: Props) => {
             <div className="modal-content">
                 <h3>Add tank</h3>
                 <form onSubmit={handleSubmit(submit)}>
-                    <label htmlFor="tank-name-input">Tank name</label>
-                    <input
-                        id="tank-name-input"
-                        type="text"
-                        placeholder="Tank name"
-                        {...register("name")}
-                        className={classNames({ error: !!errors.name })}
+                    <FormInput field="name" label="Tank name" register={register} errors={errors} />
+                    <FormInput field="monitorId" label="Tank monitor ID" register={register} errors={errors} />
+                    <FormInput
+                        field="capacity"
+                        label="Tank capacity (litres)"
+                        number
+                        register={register}
+                        errors={errors}
                     />
-                    {errors.name?.message && <p className="error">{errors.name?.message}</p>}
-
-                    <label htmlFor="tank-monitor-id-input">Tank monitor ID</label>
-                    <input
-                        id="tank-monitor-id-input"
-                        type="text"
-                        placeholder="Tank monitor ID"
-                        className={classNames({ error: !!errors.monitorId })}
-                        {...register("monitorId")}
-                        formNoValidate
+                    <FormInput
+                        field="diameter"
+                        label="Tank diameter (metres)"
+                        number
+                        register={register}
+                        errors={errors}
                     />
-                    {errors.monitorId?.message && <p className="error">{errors.monitorId?.message}</p>}
-
-                    <input
-                        type="number"
-                        placeholder="Tank capacity (litres)"
-                        className={classNames({ error: !!errors.capacity })}
-                        {...register("capacity", { valueAsNumber: true })}
+                    <FormInput
+                        field="sensorHeight"
+                        label="Sensor height (metres)"
+                        number
+                        register={register}
+                        errors={errors}
                     />
-                    {errors.capacity?.message && <p className="error">{errors.capacity?.message}</p>}
-
-                    <input
-                        type="number"
-                        placeholder="Diameter of tank (metres)"
-                        className={classNames({ error: !!errors.diameter })}
-                        {...register("diameter", { valueAsNumber: true })}
-                    />
-                    {errors.diameter?.message && <p className="error">{errors.diameter?.message}</p>}
-
-                    <input
-                        type="number"
-                        placeholder="Height of sensor above bottom of tank (metres)"
-                        className={classNames({ error: !!errors.sensorHeight })}
-                        {...register("sensorHeight", { valueAsNumber: true })}
-                    />
-                    {errors.sensorHeight?.message && <p className="error">{errors.sensorHeight?.message}</p>}
 
                     <div className="button-group">
                         <button type="submit">Add tank</button>
@@ -90,5 +69,30 @@ export const NewTankForm = (props: Props) => {
                 </form>
             </div>
         </div>
+    );
+};
+
+type FormInputProps = {
+    field: keyof Tank;
+    label: string;
+    number?: boolean;
+    register: UseFormRegister<Tank>;
+    errors: FieldErrorsImpl<Tank>;
+};
+
+const FormInput = (props: FormInputProps) => {
+    const inputId = `${props.field}-input`;
+
+    return (
+        <>
+            <label htmlFor={inputId}>{props.label}</label>
+            <input
+                id={inputId}
+                placeholder={props.label}
+                className={classNames({ error: !!props.errors[props.field] })}
+                {...props.register(props.field, { valueAsNumber: props.number })}
+            />
+            {props.errors[props.field]?.message && <p className="error">{props.errors[props.field]?.message}</p>}
+        </>
     );
 };
