@@ -12,6 +12,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         await client.connect();
         const tank = await client.db("tankmon").collection<Tank>("tanks").findOne({ _id: request.query.tankId });
 
+        console.log(tank);
         response.status(200).send(tank);
     } else {
         throw new Error("Unsupported method");
