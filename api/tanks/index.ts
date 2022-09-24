@@ -12,7 +12,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         response.status(200).send(tanks);
     } else if (request.method === "POST") {
-        console.info("Get a new tank");
+        console.info("Create a new tank");
 
         const tank = Tank.parse(request.body);
 
