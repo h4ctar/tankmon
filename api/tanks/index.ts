@@ -17,7 +17,8 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         const tank = Tank.parse(request.body);
 
         await client.connect();
-        await client.db("tankmon").collection<Tank>("tanks").insertOne(tank);
+        const result = await client.db("tankmon").collection<Tank>("tanks").insertOne(tank);
+        tank.id = result.insertedId.id.toString();
 
         response.status(201).send(tank);
     } else {
