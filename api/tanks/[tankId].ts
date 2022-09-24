@@ -6,6 +6,8 @@ import { client } from "../_mongo";
 const handler = async (request: VercelRequest, response: VercelResponse) => {
     if (request.method === "GET") {
         console.info("Get specific tank");
+        console.log(JSON.stringify(request.query))
+        console.log(JSON.stringify(request.url))
 
         await client.connect();
         const tank = await client.db("tankmon").collection<Tank>("tanks").findOne({ _id: request.query.tankId });

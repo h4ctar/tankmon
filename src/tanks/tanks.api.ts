@@ -10,7 +10,7 @@ export const getTanks = async (): Promise<Tank[]> => {
     return tanks;
 };
 
-export const getTank = async (id: string): Promise<Tank> => {
+export const getTank = (id: string) => async (): Promise<Tank> => {
     console.info("Get tank");
     const response = await fetch(`https://${import.meta.env.VITE_VERCEL_URL}/api/tanks/${id}`);
     const tank = await response.json();

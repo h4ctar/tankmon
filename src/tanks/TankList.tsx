@@ -15,17 +15,14 @@ export const TankList = () => {
     }, [parent]);
 
     return (
-        <article>
-            <header>
-                <h2>Tanks</h2>
-                <input type="text" placeholder="Filter tanks..." />
-            </header>
-            <section className="card-container" ref={parent}>
+        <>
+            <input type="text" placeholder="Filter tanks..." />
+            <div className="card-container" ref={parent}>
                 {query.data?.map((tank) => (
                     <TankCard key={tank._id} tank={tank} />
                 ))}
                 <NewTankCard />
-            </section>
-        </article>
+            </div>
+        </>
     );
 };

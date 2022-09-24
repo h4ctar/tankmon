@@ -1,15 +1,13 @@
-import { useState } from "react";
-import { NewTankForm } from "./NewTankForm";
+import { useLocation } from "wouter";
 
 export const NewTankCard = () => {
-    const [showModal, setShowModal] = useState(false);
+    const [location, setLocation] = useLocation();
 
     return (
         <>
-            <a className="new-card" onClick={() => setShowModal(true)}>
+            <a className="new-card" onClick={() => setLocation("/tanks/new")}>
                 <h3>Add tank</h3>
             </a>
-            {showModal && <NewTankForm hide={() => setShowModal(false)} />}
         </>
     );
 };
