@@ -8,6 +8,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
         console.info("Get specific tank");
         console.log(JSON.stringify(request.query))
         console.log(JSON.stringify(request.url))
+        console.log(request.query.tankId)
 
         await client.connect();
         const tank = await client.db("tankmon").collection<Tank>("tanks").findOne({ _id: request.query.tankId });
