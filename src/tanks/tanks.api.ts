@@ -13,7 +13,10 @@ export const getTanks = async (): Promise<Tank[]> => {
 export const getTank = (id: string) => async (): Promise<Tank> => {
     console.info("Get tank");
     const response = await fetch(`https://${import.meta.env.VITE_VERCEL_URL}/api/tanks/${id}`);
+    console.log(await response.arrayBuffer())
+
     const tank = await response.json();
+    console.log(tank)
 
     delay(5000);
 

@@ -19,7 +19,7 @@ export const TankList = () => {
             <input type="text" placeholder="Filter tanks..." />
             <div className="card-container" ref={parent}>
                 {query.data?.map((tank) => (
-                    <TankCard key={tank._id} tank={tank} />
+                    <TankCard key={tank.id} tank={tank} />
                 ))}
                 <NewTankCard />
             </div>

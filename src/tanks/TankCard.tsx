@@ -7,7 +7,7 @@ type Props = {
 
 export const TankCard = (props: Props) => {
     return (
-        <Link to={`/tanks/${props.tank._id}`}>
+        <Link to={`/tanks/${props.tank.id}`}>
             <div className="card tank-card">
                 <div className="tank-percentage">50%</div>
                 <div className="tank-details">
