@@ -1,6 +1,7 @@
 import type { VercelRequest, VercelResponse } from "@vercel/node";
+import { WithId } from "mongodb";
 import { Tank } from "../../src/tanks/tank.schema";
-import { client } from "../_mongo";
+import { client, mapTank } from "../_mongo";
 import { allowCors } from "../_utils";
 
 const handler = async (request: VercelRequest, response: VercelResponse) => {
@@ -9,8 +10,7 @@ const handler = async (request: VercelRequest, response: VercelResponse) => {
 
         await client.connect();
         const tanks = await client.db("tankmon").collection<Tank>("tanks").find().toArray();
-
-        response.status(200).send(tanks);
+        response.status(200).send(tanks.map(mapTank));
     } else if (request.method === "POST") {
         console.info("Create a new tank");
 
