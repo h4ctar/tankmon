@@ -4,7 +4,8 @@
     "version": "0.0.0",
     "type": "module",
     "scripts": {
-        "prettier": "prettier --check src",
+        "check:prettier": "prettier --check src",
+        "prettier": "prettier --write  src",
         "dev": "vite --strictPort",
         "build": "tsc && vite build",
         "preview": "vite preview"

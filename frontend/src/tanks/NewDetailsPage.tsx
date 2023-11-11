@@ -8,9 +8,7 @@ type Params = {
 export const TankDetailsPage = (params: Params) => {
     const query = useQuery("tanks", getTank(params.tankId));
 
-    console.log(query.data)
+    console.log(query.data);
 
-    return (
-        <h2>Tank Details</h2>
-    );
+    return <h2>Tank Details</h2>;
 };

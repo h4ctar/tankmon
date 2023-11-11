@@ -1,47 +1,36 @@
-import {
-    Id,
-    PostTank,
-    TankResource,
-} from "@tankmon/types";
+import { Id, PostTank, TankResource } from "@tankmon/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { NotFound } from "http-errors";
 import { z } from "zod";
 import { checkToken } from "./auth";
 import { prisma } from "./prisma";
-import { v4 as uuid } from 'uuid';
+import { v4 as uuid } from "uuid";
 
 export const tankRoutes: FastifyPluginCallback<
     Record<never, never>,
     RawServerDefault,
     ZodTypeProvider
 > = async (server) => {
-    server.get(
-        "/api/tanks",
-        {
-        },
-        async (request, reply) => {
-            server.log.info("Get all tanks");
+    server.get("/api/tanks", {}, async (request, reply) => {
+        server.log.info("Get all tanks");
 
-            const tankModels = await prisma.tank.findMany({
-            });
+        const tankModels = await prisma.tank.findMany({});
 
-            const tankResources: TankResource[] =
-                tankModels.map((tankModel) => ({
-                    ...tankModel,
-                    _links: {
-                        self: {
-                            href: `/api/tanks/${tankModel.id}`,
-                        },
-                        diagrams: {
-                            href: `/api/diagrams?tankId=${tankModel.id}`,
-                        },
-                    },
-                }));
+        const tankResources: TankResource[] = tankModels.map((tankModel) => ({
+            ...tankModel,
+            _links: {
+                self: {
+                    href: `/api/tanks/${tankModel.id}`,
+                },
+                diagrams: {
+                    href: `/api/diagrams?tankId=${tankModel.id}`,
+                },
+            },
+        }));
 
-            return reply.status(200).send(tankResources);
-        },
-    );
+        return reply.status(200).send(tankResources);
+    });
 
     server.get(
         "/api/tanks/:tankId",
@@ -157,9 +146,7 @@ export const tankRoutes: FastifyPluginCallback<
         async (request, reply) => {
             await checkToken(request, "edit:tanks");
 
-            server.log.info(
-                `Delete tank - tankId: ${request.params.tankId}`,
-            );
+            server.log.info(`Delete tank - tankId: ${request.params.tankId}`);
 
             await prisma.tank.delete({
                 where: { id: request.params.tankId },

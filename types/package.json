@@ -5,7 +5,8 @@
     "main": "lib/index.js",
     "types": "lib/index.d.ts",
     "scripts": {
-        "prettier": "prettier --check src",
+        "check:prettier": "prettier --check src",
+        "prettier": "prettier --write src",
         "build": "tsc",
         "dev": "tsc --watch"
     },

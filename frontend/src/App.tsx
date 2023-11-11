@@ -11,7 +11,9 @@ export const App = () => {
         <QueryClientProvider client={queryClient}>
             <article>
                 <header>
-                    <h2><Link to="/">TankMon</Link></h2>
+                    <h2>
+                        <Link to="/">TankMon</Link>
+                    </h2>
                 </header>
                 <section>
                     <Switch>
@@ -25,7 +27,9 @@ export const App = () => {
                             <NewTankPage />
                         </Route>
                         <Route path="/tanks/:tankId">
-                            {(params) => <TankDetailsPage tankId={params.tankId} />}
+                            {(params) => (
+                                <TankDetailsPage tankId={params.tankId} />
+                            )}
                         </Route>
                         <Route>404, Not Found!</Route>
                     </Switch>

@@ -1,8 +1,9 @@
 body {
     background-color: rgb(15, 23, 42);
 
-    font-family: Inter var, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, Segoe UI, Roboto,
-        Helvetica Neue, Arial, Noto Sans, sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
+    font-family: Inter var, ui-sans-serif, system-ui, -apple-system,
+        BlinkMacSystemFont, Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans,
+        sans-serif, Apple Color Emoji, Segoe UI Emoji, Segoe UI Symbol,
         Noto Color Emoji;
 
     color: rgb(255, 255, 255);
@@ -26,7 +27,7 @@ header {
 
 h2 a {
     text-decoration: none;
-    color: white
+    color: white;
 }
 
 input {

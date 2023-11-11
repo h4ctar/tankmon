@@ -3,7 +3,8 @@
     "private": true,
     "version": "0.0.0",
     "scripts": {
-        "prettier": "prettier --check src",
+        "check:prettier": "prettier --check src",
+        "prettier": "prettier --write src",
         "build": "tsc",
         "dev": "nodemon src/server.ts | pino-pretty",
         "postinstall": "prisma generate",
