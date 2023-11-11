@@ -1,0 +1,9 @@
+{
+    "compilerOptions": {
+        "declaration": true,
+        "lib": ["ES2015"],
+        "outDir": "lib",
+        "strict": true
+    },
+    "include": ["src/**/*"]
+}

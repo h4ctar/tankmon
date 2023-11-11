@@ -1,8 +1,8 @@
 import { Link } from "wouter";
-import { Tank } from "./tank.schema";
+import { Tank, TankResource } from "@tankmon/types";
 
 type Props = {
-    tank: Tank;
+    tank: TankResource;
 };
 
 export const TankCard = (props: Props) => {

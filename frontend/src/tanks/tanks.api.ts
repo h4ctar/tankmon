@@ -1,6 +1,6 @@
-import { Tank } from "./tank.schema";
+import { PostTank, Tank, TankResource } from "@tankmon/types";
 
-export const getTanks = async (): Promise<Tank[]> => {
+export const getTanks = async (): Promise<TankResource[]> => {
     console.info("Get tanks");
     const response = await fetch(`https://${import.meta.env.VITE_VERCEL_URL}/api/tanks`);
     const tanks = await response.json();
@@ -10,28 +10,28 @@ export const getTanks = async (): Promise<Tank[]> => {
     return tanks;
 };
 
-export const getTank = (id: string) => async (): Promise<Tank> => {
+export const getTank = (id: string) => async (): Promise<TankResource> => {
     console.info("Get tank");
     const response = await fetch(`https://${import.meta.env.VITE_VERCEL_URL}/api/tanks/${id}`);
-    console.log(await response.arrayBuffer())
+    console.log(await response.arrayBuffer());
 
     const tank = await response.json();
-    console.log(tank)
+    console.log(tank);
 
     delay(5000);
 
     return tank;
 };
 
-export const postTank = async (tank: Tank) => {
-    console.info("Post tank", tank);
+export const postTank = async (postTank: PostTank) => {
+    console.info("Post tank", postTank);
 
     await fetch(`https://${import.meta.env.VITE_VERCEL_URL}/api/tanks`, {
         method: "POST",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify(tank),
+        body: JSON.stringify(postTank),
     });
 
     delay(5000);

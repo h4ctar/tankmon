@@ -1,0 +1,19 @@
+{
+    "name": "@tankmon/types",
+    "private": true,
+    "version": "0.0.0",
+    "main": "lib/index.js",
+    "types": "lib/index.d.ts",
+    "scripts": {
+        "prettier": "prettier --check src",
+        "build": "tsc",
+        "dev": "tsc --watch"
+    },
+    "dependencies": {
+        "zod": "^3.21.4"
+    },
+    "devDependencies": {
+        "prettier": "^3.0.0",
+        "typescript": "^5.0.3"
+    }
+}

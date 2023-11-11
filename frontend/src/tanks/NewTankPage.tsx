@@ -1,7 +1,7 @@
 import { zodResolver } from "@hookform/resolvers/zod";
 import { FieldErrorsImpl, useForm, UseFormRegister } from "react-hook-form";
 import { useMutation, useQueryClient } from "react-query";
-import { Tank } from "./tank.schema";
+import { PostTank, Tank } from "@tankmon/types";
 import { postTank } from "./tanks.api";
 import classNames from "classnames";
 import { useLocation } from "wouter";
@@ -12,7 +12,7 @@ export const NewTankPage = () => {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<Tank>({ resolver: zodResolver(Tank) });
+    } = useForm<PostTank>({ resolver: zodResolver(PostTank) });
 
     const queryClient = useQueryClient();
     const mutation = useMutation(postTank, {
@@ -22,33 +22,15 @@ export const NewTankPage = () => {
         },
     });
 
-    const submit = (tank: Tank) => mutation.mutate(tank);
+    const submit = (postTank: PostTank) => mutation.mutate(postTank);
 
     return (
         <form onSubmit={handleSubmit(submit)}>
             <FormInput field="name" label="Tank name" register={register} errors={errors} />
             <FormInput field="monitorId" label="Tank monitor ID" register={register} errors={errors} />
-            <FormInput
-                field="capacity"
-                label="Tank capacity (litres)"
-                number
-                register={register}
-                errors={errors}
-            />
-            <FormInput
-                field="diameter"
-                label="Tank diameter (metres)"
-                number
-                register={register}
-                errors={errors}
-            />
-            <FormInput
-                field="sensorHeight"
-                label="Sensor height (metres)"
-                number
-                register={register}
-                errors={errors}
-            />
+            <FormInput field="capacity" label="Tank capacity (litres)" number register={register} errors={errors} />
+            <FormInput field="diameter" label="Tank diameter (metres)" number register={register} errors={errors} />
+            <FormInput field="sensorHeight" label="Sensor height (metres)" number register={register} errors={errors} />
 
             <div className="button-group">
                 <button type="submit">Add tank</button>
@@ -58,11 +40,11 @@ export const NewTankPage = () => {
 };
 
 type FormInputProps = {
-    field: keyof Tank;
+    field: keyof PostTank;
     label: string;
     number?: boolean;
-    register: UseFormRegister<Tank>;
-    errors: FieldErrorsImpl<Tank>;
+    register: UseFormRegister<PostTank>;
+    errors: FieldErrorsImpl<PostTank>;
 };
 
 const FormInput = (props: FormInputProps) => {
