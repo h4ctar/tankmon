@@ -63,7 +63,7 @@ jobs:
     prod-deploy:
         name: Production Deploy
         needs:
-            - end-2-end-test
+            - Staging Deploy
         environment:
             name: production
             url: https://tankmon.h4ctar.com
