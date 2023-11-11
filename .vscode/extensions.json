@@ -1,6 +1,7 @@
 {
     "recommendations": [
         "esbenp.prettier-vscode",
-        "prisma.prisma"
+        "prisma.prisma",
+        "firefox-devtools.vscode-firefox-debug"
     ]
 }
