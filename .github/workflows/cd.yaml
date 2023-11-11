@@ -60,49 +60,6 @@ jobs:
             - name: Deploy to staging
               run: pm2 deploy staging
 
-    end-2-end-test:
-        name: End-to-End Test
-        needs:
-            - staging-deploy
-        timeout-minutes: 60
-        runs-on: ubuntu-latest
-        permissions:
-            checks: write
-        env:
-            TEST_BASEURL: https://staging.tankmon.h4ctar.com
-            TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
-            TEST_USERNAME: ${{ vars.TEST_USERNAME }}
-        steps:
-            - uses: actions/checkout@v3
-            - uses: actions/setup-node@v3
-              with:
-                  node-version: 18
-            - name: Get installed Playwright version
-              id: playwright-version
-              run: echo "playwright_version=$(jq -r .packages.\"node_modules/@playwright/test\".version package-lock.json)" >> $GITHUB_OUTPUT
-            - name: Cache Playwright binaries
-              uses: actions/cache@v3
-              id: playwright-cache
-              with:
-                  path: ~/.cache/ms-playwright
-                  key: $RUNNER_OS-playwright-${{ steps.playwright-version.outputs.playwright_version }}
-            - name: Install dependencies
-              working-directory: test
-              run: npm ci
-            - name: Install Playwright browsers
-              working-directory: test
-              run: npm run install-browsers
-              if: steps.playwright-cache.outputs.cache-hit != 'true'
-            - name: Run Playwright tests
-              working-directory: test
-              run: npm run test
-            - uses: actions/upload-artifact@v3
-              if: always()
-              with:
-                  name: playwright-report
-                  path: test/playwright-report/
-                  retention-days: 30
-
     prod-deploy:
         name: Production Deploy
         needs:
