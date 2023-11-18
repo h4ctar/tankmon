@@ -10,10 +10,10 @@ module.exports = {
                 ISSUER: process.env.ISSUER,
             },
             env_staging: {
-                PORT: 3001,
+                PORT: 3003,
             },
             env_production: {
-                PORT: 3000,
+                PORT: 3002,
             },
         },
     ],

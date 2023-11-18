@@ -2,7 +2,7 @@ server {
     server_name tankmon.h4ctar.com;
 
     location ~ /(api|public) {
-        proxy_pass http://localhost:3000;
+        proxy_pass http://localhost:3002;
         proxy_http_version 1.1;
         proxy_set_header Upgrade $http_upgrade;
         proxy_set_header Connection 'upgrade';
