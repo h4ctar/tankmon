@@ -54,13 +54,13 @@ export const tankRoutes: FastifyPluginCallback<
                         orderBy: {
                             publishedAt: "desc",
                         },
-                        where: {
-                            publishedAt: {
-                                gte: new Date(
-                                    new Date().getTime() - 24 * 60 * 60 * 1000,
-                                ),
-                            },
-                        },
+                        // where: {
+                        //     publishedAt: {
+                        //         gte: new Date(
+                        //             new Date().getTime() - 24 * 60 * 60 * 1000,
+                        //         ),
+                        //     },
+                        // },
                     },
                 },
             });
@@ -68,6 +68,8 @@ export const tankRoutes: FastifyPluginCallback<
             if (!tankModel) {
                 throw new NotFound("Tank not found");
             }
+
+            console.log(JSON.stringify(tankModel.status));
 
             // TODO: remove status from resource
 
