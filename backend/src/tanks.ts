@@ -4,6 +4,7 @@ import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { NotFound } from "http-errors";
 import { z } from "zod";
 import { prisma } from "./prisma";
+import * as uuid from "uuid";
 
 export const tankRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -77,7 +78,7 @@ export const tankRoutes: FastifyPluginCallback<
 
             const postTank = request.body;
             const tankModel = await prisma.tank.create({
-                data: postTank,
+                data: { id: uuid.v4(), ...postTank },
             });
 
             const tankResource: TankResource = {

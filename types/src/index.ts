@@ -2,7 +2,7 @@ import { z } from "zod";
 
 const Link = z.object({ href: z.string() });
 
-export const Id = z.number();
+export const Id = z.string().min(1);
 
 export const Tank = z.object({
     monitorId: z.string(),
