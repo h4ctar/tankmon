@@ -1,4 +1,4 @@
-import { PostStatus } from "@tankmon/types";
+import { PostStatus, RawStatus } from "@tankmon/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { prisma } from "./prisma";
@@ -19,8 +19,9 @@ export const statusRoutes: FastifyPluginCallback<
             server.log.info("Post status");
 
             const postStatus = request.body;
+            const statusData = RawStatus.parse(postStatus.data);
             await prisma.status.create({
-                data: postStatus,
+                data: { monitorId: postStatus.coreid, ...statusData },
             });
 
             return reply.status(201).send();

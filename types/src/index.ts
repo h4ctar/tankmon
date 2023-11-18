@@ -25,11 +25,18 @@ export type TankResource = z.infer<typeof TankResource>;
 export const PostTank = Tank;
 export type PostTank = z.infer<typeof PostTank>;
 
-export const PostStatus = z.object({
-    monitorId: z.string(),
+export const RawStatus = z.object({
     distance: z.number(),
     batteryCharge: z.number(),
     signalStrength: z.number(),
     signalQuality: z.number(),
+});
+export type RawStatus = z.infer<typeof RawStatus>;
+
+export const PostStatus = z.object({
+    event: z.literal("status"),
+    data: z.string(),
+    coreid: z.string(),
+    published_at: z.string(),
 });
 export type PostStatus = z.infer<typeof PostStatus>;
