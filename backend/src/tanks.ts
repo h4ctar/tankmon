@@ -14,7 +14,9 @@ export const tankRoutes: FastifyPluginCallback<
     server.get("/api/tanks", {}, async (request, reply) => {
         server.log.info("Get all tanks");
 
-        const tankModels = await prisma.tank.findMany({});
+        const tankModels = await prisma.tank.findMany({
+            include: { status: true },
+        });
 
         const tankResources: TankResource[] = tankModels.map((tankModel) => ({
             ...tankModel,
@@ -47,14 +49,38 @@ export const tankRoutes: FastifyPluginCallback<
                 where: {
                     id: request.params.tankId,
                 },
+                include: {
+                    status: {
+                        orderBy: {
+                            publishedAt: "desc",
+                        },
+                        where: {
+                            publishedAt: {
+                                gte: new Date(
+                                    new Date().getTime() - 24 * 60 * 60 * 1000,
+                                ),
+                            },
+                        },
+                    },
+                },
             });
 
             if (!tankModel) {
                 throw new NotFound("Tank not found");
             }
 
+            // TODO: remove status from resource
+
             const tankResource: TankResource = {
                 ...tankModel,
+                ...(tankModel.status.length > 0
+                    ? {
+                          percentageFull:
+                              (tankModel.sensorHeight -
+                                  tankModel.status[0].distance) /
+                              tankModel.sensorHeight,
+                      }
+                    : {}),
                 _links: {
                     self: {
                         href: `/api/tanks/${request.params.tankId}`,

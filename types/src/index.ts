@@ -14,6 +14,7 @@ export const Tank = z.object({
 
 export const TankResource = Tank.extend({
     id: Id,
+    percentageFull: z.number().optional(),
     _links: z
         .object({
             self: Link,
@@ -25,13 +26,13 @@ export type TankResource = z.infer<typeof TankResource>;
 export const PostTank = Tank;
 export type PostTank = z.infer<typeof PostTank>;
 
-export const RawStatus = z.object({
+export const Status = z.object({
     distance: z.number(),
     batteryCharge: z.number(),
     signalStrength: z.number(),
     signalQuality: z.number(),
 });
-export type RawStatus = z.infer<typeof RawStatus>;
+export type Status = z.infer<typeof Status>;
 
 export const PostStatus = z.object({
     event: z.literal("status"),

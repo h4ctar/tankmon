@@ -20,12 +20,13 @@ model Tank {
 }
 
 model Status {
-    id             Int    @id @default(autoincrement())
+    id             Int      @id @default(autoincrement())
     monitorId      String
     distance       Float
     batteryCharge  Float
     signalStrength Float
     signalQuality  Float
+    publishedAt    DateTime
 
     tanks Tank[]
 }
