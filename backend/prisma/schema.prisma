@@ -9,24 +9,24 @@ datasource db {
 }
 
 model Tank {
-    id           String @id
-    monitorId    String
+    id           String   @id
     name         String
     sensorHeight Float
     diameter     Float
     capacity     Float
-
-    status Status[]
+    status       Status[]
 }
 
 model Status {
     id             Int      @id @default(autoincrement())
-    monitorId      String
     distance       Float
     batteryCharge  Float
     signalStrength Float
     signalQuality  Float
     publishedAt    DateTime
 
-    tanks Tank[]
+    tank   Tank   @relation(fields: [tankId], references: [id])
+    tankId String
+
+    @@index([tankId])
 }

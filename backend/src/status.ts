@@ -16,13 +16,15 @@ export const statusRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            server.log.info("Post status");
-
             const postStatus = request.body;
+
+            server.log.info(`Post status - ${postStatus.coreid}`);
+
             const data = postStatus.data.split(",");
+
             await prisma.status.create({
                 data: {
-                    monitorId: postStatus.coreid,
+                    tankId: postStatus.coreid,
                     distance: Number(data[0]),
                     batteryCharge: Number(data[1]),
                     signalStrength: Number(data[2]),

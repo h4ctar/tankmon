@@ -4,6 +4,27 @@ import { TrashIcon } from "../icons/TrashIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { Loading } from "../ui/Loading";
 import { useDeleteTank, useFetchTank } from "./tank.hooks";
+import { Line } from "react-chartjs-2";
+import {
+    Chart,
+    CategoryScale,
+    Legend,
+    LineElement,
+    LinearScale,
+    PointElement,
+    Title,
+    Tooltip,
+} from "chart.js";
+
+Chart.register(
+    CategoryScale,
+    LinearScale,
+    PointElement,
+    LineElement,
+    Title,
+    Tooltip,
+    Legend,
+);
 
 type Props = {
     tankId: string;
@@ -33,6 +54,18 @@ export const TankDetailsPage = ({ tankId }: Props) => {
         }
     };
 
+    const data = {
+        labels: tank.status?.map((status) => status.publishedAt),
+        datasets: [
+            {
+                label: "Water level",
+                data: tank.status?.map(
+                    (status) => tank.sensorHeight - status.distance,
+                ),
+            },
+        ],
+    };
+
     return (
         <div className="mx-auto flex max-w-7xl flex-col items-center p-5">
             <div className="flex w-full flex-row">
@@ -52,6 +85,7 @@ export const TankDetailsPage = ({ tankId }: Props) => {
                     </Link>
                 </div>
             </div>
+            <Line data={data} />
         </div>
     );
 };

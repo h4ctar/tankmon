@@ -62,10 +62,10 @@ void loop()
 
     float distance = readDistance();
 
-    char json[100];
-    sprintf(json, "{ \"distance\": %.2f, \"batteryCharge\": %.2f, \"signalStrength\": %.2f, \"signalQuality\": %.2f }", distance, batteryCharge, signalStrength, signalQuality);
-    Particle.publish("status", json, PRIVATE);
+    char data[100];
+    sprintf(data, "%.2f,%.2f,%.2f,%.2f", distance, batteryCharge, signalStrength, signalQuality);
+    Particle.publish("status", data, PRIVATE);
 
-    System.sleep(SLEEP_MODE_SOFTPOWEROFF, 10 * 60);
-    // delay(10 * 1000);
+    // System.sleep(SLEEP_MODE_SOFTPOWEROFF, 10 * 60);
+    delay(30 * 1000);
 }

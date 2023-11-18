@@ -27,6 +27,7 @@ export const TankForm = ({ tankId }: Props) => {
             form.reset();
         }
     }, [tankId]);
+    console.log(form.formState.errors);
 
     return (
         <div className="mx-auto flex max-w-7xl flex-col gap-4 p-5">
@@ -45,11 +46,7 @@ export const TankForm = ({ tankId }: Props) => {
             >
                 <div className="grid grid-cols-1 gap-4">
                     <TextInput name="name" label="Tank name" form={form} />
-                    <TextInput
-                        name="monitorId"
-                        label="Tank monitor ID"
-                        form={form}
-                    />
+                    <TextInput name="id" label="Tank monitor ID" form={form} />
                     <TextInput
                         name="capacity"
                         label="Tank capacity (litres)"

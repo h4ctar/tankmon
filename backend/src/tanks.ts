@@ -52,15 +52,15 @@ export const tankRoutes: FastifyPluginCallback<
                 include: {
                     status: {
                         orderBy: {
-                            publishedAt: "desc",
+                            publishedAt: "asc",
                         },
-                        // where: {
-                        //     publishedAt: {
-                        //         gte: new Date(
-                        //             new Date().getTime() - 24 * 60 * 60 * 1000,
-                        //         ),
-                        //     },
-                        // },
+                        where: {
+                            publishedAt: {
+                                gte: new Date(
+                                    new Date().getTime() - 24 * 60 * 60 * 1000,
+                                ),
+                            },
+                        },
                     },
                 },
             });
@@ -71,18 +71,8 @@ export const tankRoutes: FastifyPluginCallback<
 
             console.log(JSON.stringify(tankModel.status));
 
-            // TODO: remove status from resource
-
             const tankResource: TankResource = {
                 ...tankModel,
-                ...(tankModel.status.length > 0
-                    ? {
-                          percentageFull:
-                              (tankModel.sensorHeight -
-                                  tankModel.status[0].distance) /
-                              tankModel.sensorHeight,
-                      }
-                    : {}),
                 _links: {
                     self: {
                         href: `/api/tanks/${request.params.tankId}`,
@@ -106,7 +96,7 @@ export const tankRoutes: FastifyPluginCallback<
 
             const postTank = request.body;
             const tankModel = await prisma.tank.create({
-                data: { id: uuid.v4(), ...postTank },
+                data: postTank,
             });
 
             const tankResource: TankResource = {
