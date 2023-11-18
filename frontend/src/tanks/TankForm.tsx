@@ -27,7 +27,6 @@ export const TankForm = ({ tankId }: Props) => {
             form.reset();
         }
     }, [tankId]);
-    console.log(form.formState.errors);
 
     return (
         <div className="mx-auto flex max-w-7xl flex-col gap-4 p-5">

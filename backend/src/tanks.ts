@@ -69,8 +69,6 @@ export const tankRoutes: FastifyPluginCallback<
                 throw new NotFound("Tank not found");
             }
 
-            console.log(JSON.stringify(tankModel.status));
-
             const tankResource: TankResource = {
                 ...tankModel,
                 _links: {
