@@ -9,10 +9,23 @@ datasource db {
 }
 
 model Tank {
-    id           String @id
+    id           Int    @id @default(autoincrement())
     monitorId    String
     name         String
     sensorHeight Float
     diameter     Float
     capacity     Float
+
+    status Status[]
+}
+
+model Status {
+    id             Int    @id @default(autoincrement())
+    monitorId      String
+    distance       Float
+    batteryCharge  Float
+    signalStrength Float
+    signalQuality  Float
+
+    tanks Tank[]
 }

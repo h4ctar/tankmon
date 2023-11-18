@@ -3,9 +3,7 @@ import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { NotFound } from "http-errors";
 import { z } from "zod";
-// import { checkToken } from "./auth";
 import { prisma } from "./prisma";
-import { v4 as uuid } from "uuid";
 
 export const tankRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -75,16 +73,11 @@ export const tankRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            // await checkToken(request, "edit:tanks");
-
             server.log.info("Create tank");
 
             const postTank = request.body;
             const tankModel = await prisma.tank.create({
-                data: {
-                    id: uuid(),
-                    ...postTank,
-                },
+                data: postTank,
             });
 
             const tankResource: TankResource = {
@@ -111,8 +104,6 @@ export const tankRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            // await checkToken(request, "edit:tanks");
-
             server.log.info("Update tank");
 
             const postTank = request.body;
@@ -144,8 +135,6 @@ export const tankRoutes: FastifyPluginCallback<
             },
         },
         async (request, reply) => {
-            // await checkToken(request, "edit:tanks");
-
             server.log.info(`Delete tank - tankId: ${request.params.tankId}`);
 
             await prisma.tank.delete({

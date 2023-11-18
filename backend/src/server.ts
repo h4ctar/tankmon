@@ -1,12 +1,11 @@
 import "dotenv/config";
 import fastify from "fastify";
-import jwtVerify from "fastify-jwt-jwks";
 import {
     ZodTypeProvider,
     serializerCompiler,
     validatorCompiler,
 } from "fastify-type-provider-zod";
-import { User } from "./auth";
+import { statusRoutes } from "./status";
 import { tankRoutes } from "./tanks";
 
 export const server = fastify({
@@ -20,13 +19,8 @@ const start = async () => {
         const port = parseInt(process.env.PORT || "3000");
         server.log.info(`Starting server on port ${port}`);
 
-        await server.register(jwtVerify, {
-            jwksUrl: process.env.JWKS_URL,
-            issuer: process.env.ISSUER,
-            formatUser: (payload) => payload as User,
-        });
-
         await server.register(tankRoutes);
+        await server.register(statusRoutes);
 
         await server.listen({ port: port });
 
