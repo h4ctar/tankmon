@@ -27,11 +27,11 @@ export const TankCards = () => {
         );
     }
 
-    const tanks = fetchTanks.data;
+    const tanks = fetchTanks.data!;
 
     return (
         <div className="mx-auto grid max-w-7xl grid-cols-1 gap-4 p-5 sm:grid-cols-2 lg:grid-cols-4">
-            {tanks?.map((tank) => (
+            {tanks.map((tank) => (
                 <Link
                     key={tank.id}
                     href={`/tanks/${tank.id}`}

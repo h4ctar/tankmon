@@ -25,10 +25,10 @@ export const TankDetailsPage = ({ tankId }: Props) => {
         );
     }
 
-    const tank = fetchTank.data;
+    const tank = fetchTank.data!;
 
     const onDeleteClick = () => {
-        if (confirm(`Are you sure you want to delete ${tank?.name}?`)) {
+        if (confirm(`Are you sure you want to delete ${tank.name}?`)) {
             deleteTank.mutate();
         }
     };
@@ -38,7 +38,7 @@ export const TankDetailsPage = ({ tankId }: Props) => {
             <div className="flex w-full flex-row">
                 <div className="flex-grow">
                     <h1 className="mx-5 mt-5 text-4xl font-extrabold text-slate-900 dark:text-white sm:text-5xl lg:text-6xl">
-                        {tank?.name}
+                        {tank.name}
                     </h1>
                 </div>
                 <div className="flex flex-row items-center gap-4">
