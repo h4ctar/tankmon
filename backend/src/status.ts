@@ -11,18 +11,22 @@ export const statusRoutes: FastifyPluginCallback<
     server.post(
         "/api/status",
         {
-            schema: {
-                body: PostStatus,
-            },
+            // schema: {
+            //     body: PostStatus,
+            // },
         },
         async (request, reply) => {
             server.log.info("Post status");
 
-            const postStatus = request.body;
-            const statusData = RawStatus.parse(postStatus.data);
-            await prisma.status.create({
-                data: { monitorId: postStatus.coreid, ...statusData },
-            });
+            server.log.info(request.body);
+            server.log.info(typeof request.body);
+            // server.log.info(JSON.parse(request.body));
+
+            // const postStatus = request.body;
+            // const statusData = RawStatus.parse(postStatus.data);
+            // await prisma.status.create({
+            //     data: { monitorId: postStatus.coreid, ...statusData },
+            // });
 
             return reply.status(201).send();
         },
