@@ -60,7 +60,7 @@ export const TankDetailsPage = ({ tankId }: Props) => {
             {
                 label: "Water level",
                 data: tank.status?.map(
-                    (status) => tank.sensorHeight - status.distance,
+                    (status) => tank.sensorHeight - status.distance / 1000,
                 ),
             },
         ],
