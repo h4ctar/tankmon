@@ -14,11 +14,15 @@ import {
     PointElement,
     Title,
     Tooltip,
+    ChartData,
+    TimeScale,
 } from "chart.js";
+import "chartjs-adapter-date-fns";
 
 Chart.register(
     CategoryScale,
     LinearScale,
+    TimeScale,
     PointElement,
     LineElement,
     Title,
@@ -54,14 +58,13 @@ export const TankDetailsPage = ({ tankId }: Props) => {
         }
     };
 
-    const data = {
+    // Memoize
+    const data: ChartData<"line", number[], Date> = {
         labels: tank.status?.map((status) => status.publishedAt),
         datasets: [
             {
                 label: "Water level",
-                data: tank.status?.map(
-                    (status) => tank.sensorHeight - status.distance / 1000,
-                ),
+                data: tank.status?.map((status) => status.waterLevel),
             },
         ],
     };
@@ -85,7 +88,18 @@ export const TankDetailsPage = ({ tankId }: Props) => {
                     </Link>
                 </div>
             </div>
-            <Line data={data} />
+            <Line
+                data={data}
+                options={{
+                    scales: {
+                        x: {
+                            type: "time",
+                            min: new Date().getTime() - 24 * 60 * 60 * 1000,
+                            max: new Date().getTime(),
+                        },
+                    },
+                }}
+            />
         </div>
     );
 };
