@@ -13,16 +13,15 @@ export const Tank = z.object({
 });
 
 export const Status = z.object({
-    distance: z.number(),
+    waterLevel: z.number(),
     batteryCharge: z.number(),
     signalStrength: z.number(),
-    signalQuality: z.number(),
     publishedAt: z.date(),
 });
 export type Status = z.infer<typeof Status>;
 
 export const TankResource = Tank.extend({
-    status: Status.array().optional(),
+    status: Status.array(),
     _links: z
         .object({
             self: Link,
@@ -30,6 +29,20 @@ export const TankResource = Tank.extend({
         .optional(),
 });
 export type TankResource = z.infer<typeof TankResource>;
+
+export const GetTanksResponse = z
+    .object({
+        id: Id,
+        name: z.string().min(3),
+        status: Status.optional(),
+        _links: z
+            .object({
+                self: Link,
+            })
+            .optional(),
+    })
+    .array();
+export type GetTanksResponse = z.infer<typeof GetTanksResponse>;
 
 export const PostTank = Tank;
 export type PostTank = z.infer<typeof PostTank>;

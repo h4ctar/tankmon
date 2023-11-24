@@ -1,10 +1,10 @@
-import { Id, PostTank, TankResource } from "@tankmon/types";
+import { GetTanksResponse, Id, PostTank, TankResource } from "@tankmon/types";
 import { FastifyPluginCallback, RawServerDefault } from "fastify";
 import { ZodTypeProvider } from "fastify-type-provider-zod";
 import { NotFound } from "http-errors";
 import { z } from "zod";
 import { prisma } from "./prisma";
-import * as uuid from "uuid";
+import { Tank } from "@prisma/client";
 
 export const tankRoutes: FastifyPluginCallback<
     Record<never, never>,
@@ -15,22 +15,52 @@ export const tankRoutes: FastifyPluginCallback<
         server.log.info("Get all tanks");
 
         const tankModels = await prisma.tank.findMany({
-            include: { status: true },
-        });
-
-        const tankResources: TankResource[] = tankModels.map((tankModel) => ({
-            ...tankModel,
-            _links: {
-                self: {
-                    href: `/api/tanks/${tankModel.id}`,
-                },
-                diagrams: {
-                    href: `/api/diagrams?tankId=${tankModel.id}`,
+            include: {
+                status: {
+                    orderBy: {
+                        publishedAt: "asc",
+                    },
+                    where: {
+                        publishedAt: {
+                            gte: new Date(
+                                new Date().getTime() - 24 * 60 * 60 * 1000,
+                            ),
+                        },
+                    },
                 },
             },
-        }));
+        });
 
-        return reply.status(200).send(tankResources);
+        const getTanksResponse: GetTanksResponse = tankModels.map(
+            (tankModel) => ({
+                id: tankModel.id,
+                name: tankModel.name,
+                ...(tankModel.status[0]
+                    ? {
+                          status: {
+                              waterLevel: Math.round(
+                                  tankModel.sensorHeight -
+                                      tankModel.status[0].distance / 1000,
+                              ),
+                              batteryCharge: tankModel.status[0].batteryCharge,
+                              signalStrength:
+                                  tankModel.status[0].signalStrength,
+                              publishedAt: tankModel.status[0].publishedAt,
+                          },
+                      }
+                    : {}),
+                _links: {
+                    self: {
+                        href: `/api/tanks/${tankModel.id}`,
+                    },
+                    diagrams: {
+                        href: `/api/diagrams?tankId=${tankModel.id}`,
+                    },
+                },
+            }),
+        );
+
+        return reply.status(200).send(getTanksResponse);
     });
 
     server.get(
@@ -70,7 +100,19 @@ export const tankRoutes: FastifyPluginCallback<
             }
 
             const tankResource: TankResource = {
-                ...tankModel,
+                id: tankModel.id,
+                name: tankModel.name,
+                sensorHeight: tankModel.sensorHeight,
+                capacity: tankModel.capacity,
+                diameter: tankModel.diameter,
+                status: tankModel.status.map((status) => ({
+                    waterLevel: Math.round(
+                        tankModel.sensorHeight - status.distance / 1000,
+                    ),
+                    batteryCharge: status.batteryCharge,
+                    signalStrength: status.signalStrength,
+                    publishedAt: status.publishedAt,
+                })),
                 _links: {
                     self: {
                         href: `/api/tanks/${request.params.tankId}`,
@@ -98,7 +140,12 @@ export const tankRoutes: FastifyPluginCallback<
             });
 
             const tankResource: TankResource = {
-                ...tankModel,
+                id: tankModel.id,
+                name: tankModel.name,
+                sensorHeight: tankModel.sensorHeight,
+                capacity: tankModel.capacity,
+                diameter: tankModel.diameter,
+                status: [],
                 _links: {
                     self: {
                         href: `/api/tanks/${tankModel.id}`,
@@ -130,7 +177,12 @@ export const tankRoutes: FastifyPluginCallback<
             });
 
             const tankResource: TankResource = {
-                ...tankModel,
+                id: tankModel.id,
+                name: tankModel.name,
+                sensorHeight: tankModel.sensorHeight,
+                capacity: tankModel.capacity,
+                diameter: tankModel.diameter,
+                status: [],
                 _links: {
                     self: {
                         href: `/api/tanks/${tankModel.id}`,
@@ -162,3 +214,5 @@ export const tankRoutes: FastifyPluginCallback<
         },
     );
 };
+
+const convertTankModelToResource = (tankModel: Tank) => ({});

@@ -1,6 +1,6 @@
-import { PostTank, TankResource } from "@tankmon/types";
+import { GetTanksResponse, PostTank, TankResource } from "@tankmon/types";
 
-export const fetchTanks = async (): Promise<TankResource[]> => {
+export const fetchTanks = async (): Promise<GetTanksResponse> => {
     console.info("Get tanks");
     const response = await fetch(`/api/tanks`);
     if (!response.ok) {
