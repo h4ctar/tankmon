@@ -18,7 +18,9 @@ export const statusRoutes: FastifyPluginCallback<
         async (request, reply) => {
             const postStatus = request.body;
 
-            server.log.info(`Post status - ${postStatus.coreid}`);
+            server.log.info(
+                `Post status - ${postStatus.coreid}, '${postStatus.data}'`,
+            );
 
             const data = postStatus.data.split(",");
 

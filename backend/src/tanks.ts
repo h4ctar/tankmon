@@ -214,5 +214,3 @@ export const tankRoutes: FastifyPluginCallback<
         },
     );
 };
-
-const convertTankModelToResource = (tankModel: Tank) => ({});
