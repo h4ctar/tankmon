@@ -39,8 +39,9 @@ export const tankRoutes: FastifyPluginCallback<
                     ? {
                           status: {
                               waterLevel: Math.round(
-                                  tankModel.sensorHeight -
-                                      tankModel.status[0].distance / 1000,
+                                  (tankModel.sensorHeight -
+                                      tankModel.status[0].distance / 1000) /
+                                      tankModel.sensorHeight,
                               ),
                               batteryCharge: tankModel.status[0].batteryCharge,
                               signalStrength:
@@ -107,7 +108,8 @@ export const tankRoutes: FastifyPluginCallback<
                 diameter: tankModel.diameter,
                 status: tankModel.status.map((status) => ({
                     waterLevel: Math.round(
-                        tankModel.sensorHeight - status.distance / 1000,
+                        (tankModel.sensorHeight - status.distance / 1000) /
+                            tankModel.sensorHeight,
                     ),
                     batteryCharge: status.batteryCharge,
                     signalStrength: status.signalStrength,
