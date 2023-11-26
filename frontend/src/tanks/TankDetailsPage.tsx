@@ -4,31 +4,7 @@ import { TrashIcon } from "../icons/TrashIcon";
 import { ErrorMessage } from "../ui/ErrorMessage";
 import { Loading } from "../ui/Loading";
 import { useDeleteTank, useFetchTank } from "./tank.hooks";
-import { Line } from "react-chartjs-2";
-import {
-    Chart,
-    CategoryScale,
-    Legend,
-    LineElement,
-    LinearScale,
-    PointElement,
-    Title,
-    Tooltip,
-    ChartData,
-    TimeScale,
-} from "chart.js";
-import "chartjs-adapter-date-fns";
-
-Chart.register(
-    CategoryScale,
-    LinearScale,
-    TimeScale,
-    PointElement,
-    LineElement,
-    Title,
-    Tooltip,
-    Legend,
-);
+import { TankChart } from "./TankChart";
 
 type Props = {
     tankId: string;
@@ -58,17 +34,6 @@ export const TankDetailsPage = ({ tankId }: Props) => {
         }
     };
 
-    // Memoize
-    const data: ChartData<"line", number[], Date> = {
-        labels: tank.status?.map((status) => status.publishedAt),
-        datasets: [
-            {
-                label: "Water level",
-                data: tank.status?.map((status) => status.waterLevel),
-            },
-        ],
-    };
-
     return (
         <div className="mx-auto flex max-w-7xl flex-col items-center p-5">
             <div className="flex w-full flex-row">
@@ -88,18 +53,7 @@ export const TankDetailsPage = ({ tankId }: Props) => {
                     </Link>
                 </div>
             </div>
-            <Line
-                data={data}
-                options={{
-                    scales: {
-                        x: {
-                            type: "time",
-                            min: new Date().getTime() - 24 * 60 * 60 * 1000,
-                            max: new Date().getTime(),
-                        },
-                    },
-                }}
-            />
+            <TankChart tank={tank} />
         </div>
     );
 };
