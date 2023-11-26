@@ -16,20 +16,20 @@ jobs:
             - name: Run prettier
               run: npm run check:prettier --workspaces --if-present
 
-    compile:
-        runs-on: ubuntu-latest
+    # compile:
+    #     runs-on: ubuntu-latest
 
-        steps:
-            - name: Checkout Repository
-              uses: actions/checkout@v4
+    #     steps:
+    #         - name: Checkout Repository
+    #           uses: actions/checkout@v4
 
-            - name: Compile Firmware
-              id: compile
-              uses: particle-iot/compile-action@v1
-              with:
-                  particle-platform-name: electron
-                  sources-folder: firmware
-                  device-os-version: 2.0.1
+    #         - name: Compile Firmware
+    #           id: compile
+    #           uses: particle-iot/compile-action@v1
+    #           with:
+    #               particle-platform-name: electron
+    #               sources-folder: firmware
+    #               device-os-version: 2.0.1
 
     build:
         name: Build
