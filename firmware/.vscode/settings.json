@@ -5,6 +5,6 @@
         "*.ino": "cpp"
     },
     "particle.targetDevice": "540028000251383133363636",
-    "particle.firmwareVersion": "2.0.1",
+    "particle.firmwareVersion": "2.3.1",
     "particle.targetPlatform": "electron"
 }
