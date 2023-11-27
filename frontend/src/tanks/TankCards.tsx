@@ -42,15 +42,15 @@ export const TankCards = () => {
                     </h2>
                     {tank.status && (
                         <>
-                            <h3 className="mx-3 text-lg text-slate-500">{`Water Level - ${
-                                tank.status.waterLevel * 100
-                            }%`}</h3>
-                            <h3 className="mx-3 text-lg text-slate-500">{`Battery Charge - ${
-                                tank.status.batteryCharge * 100
-                            }%`}</h3>
-                            <h3 className="mx-3 mb-3 text-lg text-slate-500">{`Signal Strength - ${
-                                tank.status.signalStrength * 100
-                            }%`}</h3>
+                            <h3 className="mx-3 text-lg text-slate-500">{`Water Level - ${Math.round(
+                                tank.status.waterLevel * 100,
+                            )}%`}</h3>
+                            <h3 className="mx-3 text-lg text-slate-500">{`Battery Charge - ${Math.round(
+                                tank.status.batteryCharge * 100,
+                            )}%`}</h3>
+                            <h3 className="mx-3 mb-3 text-lg text-slate-500">{`Signal Strength - ${Math.round(
+                                tank.status.signalStrength * 100,
+                            )}%`}</h3>
                         </>
                     )}
                 </Link>
