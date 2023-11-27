@@ -18,12 +18,12 @@ export const tankRoutes: FastifyPluginCallback<
             include: {
                 status: {
                     orderBy: {
-                        publishedAt: "asc",
+                        publishedAt: "desc",
                     },
                     where: {
                         publishedAt: {
                             gte: new Date(
-                                new Date().getTime() - 24 * 60 * 60 * 1000,
+                                new Date().getTime() - 2 * 60 * 60 * 1000,
                             ),
                         },
                     },
